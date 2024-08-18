@@ -1,0 +1,114 @@
+﻿@page "/LearnBlazor/BindProp"
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">Product - Data Binding</h2>
+
+    <div class="row">
+        <!-- Product Playground -->
+        <div class="col-lg-6 col-md-12 mb-4 d-flex">
+            <div class="product-playground bg-light p-4 rounded shadow flex-fill">
+                <h4 class="text-secondary border-bottom pb-2 mb-3">Product Playground</h4>
+
+                <div class="form-group">
+                    <!-- Checkbox binding -->
+                    <label class="font-weight-bold">IsActive:</label>
+                    <input type="checkbox" @bind="@Product.IsActive" class="form-check-input ml-2" />
+                </div>
+
+                <div class="form-group">
+                    <!-- Number input binding -->
+                    <label class="font-weight-bold">Input Price:</label>
+                    <input type="number" @bind-value="@Product.Price" @bind-value:event="oninput" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <!-- Select binding -->
+                    <label class="font-weight-bold">Product Properties:</label>
+                    <select @bind="SelectedProp" class="form-control">
+                        @foreach (var prop in Product.ProductProperties)
+                        {
+                            <option value="@prop.Key">@prop.Key</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Summary -->
+        <div class="col-lg-6 col-md-12 mb-4 d-flex">
+            <div class="product-summary bg-light p-4 rounded shadow flex-fill">
+                <h4 class="text-secondary border-bottom pb-2 mb-3">Product Summary</h4>
+
+                <p>ID: <span class="font-weight-bold">@Product.Id</span></p>
+                <p>Name: <span class="font-weight-bold">@Product.Name</span></p>
+                <p>IsActive: <span class="font-weight-bold">@Product.IsActive</span></p>
+                <p>
+                    The Product is:
+                    <span class="badge @(Product.IsActive ? "badge-success" : "badge-danger")">
+                        @(Product.IsActive ? "Active" : "InActive")
+                    </span>
+                </p>
+                <p>Price: <span class="font-weight-bold">@Product.Price</span></p>
+
+                @if (!string.IsNullOrEmpty(SelectedProp))
+                {
+                    <p>Selected Property: <span class="font-weight-bold">@SelectedProp</span></p>
+                    <p>
+                        Selected Value:
+                        <span class="text-info">
+                            @Product.ProductProperties.FirstOrDefault(u => u.Key == SelectedProp)?.Value
+                        </span>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string SelectedProp = "";
+
+    Models.Product Product = new()
+        {
+            Id = 1,
+            Name = "Product 1",
+            IsActive = true,
+            ProductProperties = new List<Product_Prop>()
+        {
+            new Product_Prop { Id = 1, Key = "Color", Value = "Red" },
+            new Product_Prop { Id = 2, Key = "Height", Value = "50px" },
+            new Product_Prop { Id = 3, Key = "Background", Value = "Transparent" }
+        }
+        };
+
+    List<Product> ProductList = new();
+
+    protected override void OnInitialized()
+    {
+        ProductList.Add(new Models.Product
+            {
+                Id = 1,
+                Name = "Midnight Blaze",
+                IsActive = false,
+                ProductProperties = new List<Product_Prop>
+            {
+                new Product_Prop { Id = 1, Key = "Flavor", Value = "Rose"},
+                new Product_Prop { Id = 2, Key = "Size", Value = "20oz"},
+                new Product_Prop { Id = 3, Key = "Color", Value = "Purple" }
+            }
+            });
+
+        ProductList.Add(new Models.Product
+            {
+                Id = 2,
+                Name = "Blossom Lily",
+                IsActive = true,
+                ProductProperties = new List<Product_Prop>
+            {
+                new Product_Prop { Id = 1, Key = "Flavor", Value = "Lily" },
+                new Product_Prop { Id = 2, Key = "Size", Value = "18oz" },
+                new Product_Prop { Id = 3, Key = "Color", Value = "White" }
+            }
+            });
+    }
+}

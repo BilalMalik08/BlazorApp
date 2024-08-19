@@ -1,0 +1,86 @@
+﻿@page "/LearnBlazor/DemoProduct"
+
+<h2 class="text-primary text-center mb-4">Demo Product</h2>
+<div class="container mt-4">
+    <div class="bg-light p-4 rounded shadow">
+        <div class="row justify-content-center">
+            @foreach (var prod in ProductList)
+            {
+                <div class="bg-white border rounded p-4 m-2 col-12 col-md-6 col-lg-4 shadow-sm">
+                    <h4 class="text-secondary mb-3">Product - @prod.Id</h4>
+                    <p><strong>Name:</strong> @prod.Name</p>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <label class="mr-2"><strong>Show Properties:</strong></label>
+                        <input type="checkbox" @bind="@prod.IsActive" class="form-check-input" />
+                    </div>
+
+                    @if (prod.IsActive)
+                    {
+                        <div class="mt-3">
+                            <h5 class="text-success">Properties:</h5>
+                            <ul class="list-unstyled">
+                                @foreach (var prodProp in prod.ProductProperties)
+                                {
+                                    <li class="mb-1"><strong>@prodProp.Key:</strong> @prodProp.Value</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <div class="text-center mt-4">
+                      <_DeleteButtonComponent>
+
+                      </_DeleteButtonComponent>
+                    </div>
+                </div>
+            }
+            <div class="text-center mt-4">
+                <input @onclick="()=>IncreaseCount(5)" type="button" class="btn btn-outline-primary" value="Count" /> <br />
+                Count: @count
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    public int count { get; set; } = 0;
+
+    private void IncreaseCount(int counter)
+    {
+        count += counter;
+    }
+
+    List<Product> ProductList = new();
+
+    protected override void OnInitialized()
+    {
+        ProductList.Add(new Models.Product
+            {
+                Id = 1,
+                Name = "Midnight Blaze",
+                IsActive = false,
+                Price = 250,
+                ProductProperties = new List<Product_Prop>
+            {
+                new Product_Prop { Id = 1, Key = "Flavor", Value = "Rose" },
+                new Product_Prop { Id = 2, Key = "Size", Value = "20oz" },
+                new Product_Prop { Id = 3, Key = "Color", Value = "Purple" }
+            }
+            });
+
+        ProductList.Add(new Models.Product
+            {
+                Id = 2,
+                Name = "Blossom Lily",
+                IsActive = true,
+                Price = 300,
+                ProductProperties = new List<Product_Prop>
+            {
+                new Product_Prop { Id = 1, Key = "Flavor", Value = "Lily" },
+                new Product_Prop { Id = 2, Key = "Size", Value = "18oz" },
+                new Product_Prop { Id = 3, Key = "Color", Value = "White" }
+            }
+            });
+    }
+}

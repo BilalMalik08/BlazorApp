@@ -63,6 +63,61 @@
             </div>
         </div>
     </div>
+
+    <!-- Product Table -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="bg-light p-4 rounded shadow">
+                <h2 class="text-success text-center mb-4">Product Table</h2>
+                <table class="table table-hover table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Is Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var prod in ProductList)
+                        {
+                            <tr>
+                                <td><input type="text" @bind="prod.Name" @bind:event="oninput" class="form-control" /></td>
+                                <td><input type="text" @bind="prod.Price" @bind:event="oninput" class="form-control" /></td>
+                                <td class="text-center">
+                                    <input type="checkbox" @bind="prod.IsActive" class="form-check-input" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary of Products -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="bg-light p-4 rounded shadow">
+                <h2 class="text-secondary mb-4">Summary of Products</h2>
+                @foreach (var prod in ProductList)
+                {
+                    <div class="d-flex align-items-center mb-3 p-2 border-bottom">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">
+                                <strong class="text-primary">@prod.Name</strong>
+                                <span class="text-muted">[@prod.Price]</span>
+                            </h5>
+                        </div>
+                        <div class="ml-3">
+                            <span class="badge @(prod.IsActive ? "bg-success" : "bg-danger") p-2">
+                                @(prod.IsActive ? "Active" : "Inactive")
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
 @code {
@@ -73,6 +128,7 @@
             Id = 1,
             Name = "Product 1",
             IsActive = true,
+            Price = 100,
             ProductProperties = new List<Product_Prop>()
         {
             new Product_Prop { Id = 1, Key = "Color", Value = "Red" },
@@ -90,10 +146,11 @@
                 Id = 1,
                 Name = "Midnight Blaze",
                 IsActive = false,
+                Price = 250,
                 ProductProperties = new List<Product_Prop>
             {
-                new Product_Prop { Id = 1, Key = "Flavor", Value = "Rose"},
-                new Product_Prop { Id = 2, Key = "Size", Value = "20oz"},
+                new Product_Prop { Id = 1, Key = "Flavor", Value = "Rose" },
+                new Product_Prop { Id = 2, Key = "Size", Value = "20oz" },
                 new Product_Prop { Id = 3, Key = "Color", Value = "Purple" }
             }
             });
@@ -103,6 +160,7 @@
                 Id = 2,
                 Name = "Blossom Lily",
                 IsActive = true,
+                Price = 300,
                 ProductProperties = new List<Product_Prop>
             {
                 new Product_Prop { Id = 1, Key = "Flavor", Value = "Lily" },

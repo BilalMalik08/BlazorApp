@@ -1,0 +1,55 @@
+﻿<div class="bg-white border rounded p-4 m-2 col-12 col-md-6 col-lg-4 shadow-sm" @onclick="(args)=>SelectedProductUpdated(args, Product.Name)">
+    <h4 class="text-secondary mb-3">Product - @Product.Id</h4>
+
+    <div class="d-flex align-items-center mb-3">
+        <label class="mr-2"><strong>Add to Favourites:</strong></label>
+        <input type="checkbox" @onchange="FavouriteUpdated" class="form-check-input" />
+    </div>
+
+    <p><strong>Name:</strong> @Product.Name</p>
+
+    <div class="d-flex align-items-center mb-3">
+        <label class="mr-2"><strong>Show Properties:</strong></label>
+        <input type="checkbox" @bind="@Product.IsActive" class="form-check-input" />
+    </div>
+
+    @if (Product.IsActive)
+    {
+        <div class="mt-3">
+            <h5 class="text-success">Properties:</h5>
+            <ul class="list-unstyled">
+                @foreach (var prodProp in Product.ProductProperties)
+                {
+                    <li class="mb-1"><strong>@prodProp.Key:</strong> @prodProp.Value</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <div class="text-center mt-4">
+        <_DeleteButtonComponent productId="@Product.Id">
+
+        </_DeleteButtonComponent>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Product Product { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnFavouriteUpdated { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnSelectedProductChange { get; set; }
+
+    private async Task FavouriteUpdated(ChangeEventArgs args)
+    {
+        await OnFavouriteUpdated.InvokeAsync((bool)(args.Value ?? false));
+    }
+
+    private async Task SelectedProductUpdated(MouseEventArgs args, string productName)
+    {
+        await OnSelectedProductChange.InvokeAsync(productName);
+    }
+}

@@ -1,6 +1,21 @@
-﻿<div>
-    <div class="alert alert-info">
+﻿<div class="card shadow-sm mb-4">
+    <div class="card-header bg-info text-white">
         @Title
+    </div>
+    <div class="card-body">
+        @if (ChildContent != null)
+        {
+            <div class="alert alert-success">
+                @ChildContent
+            </div>
+        }
+        @if (ChildSomeContent != null)
+        {
+            <div class="alert alert-success">
+                @ChildSomeContent
+            </div>
+        }
+        <button class="btn btn-dark mt-2" @onclick="OnButtonClick">Click Me</button>
     </div>
 </div>
 
@@ -8,4 +23,12 @@
     [Parameter]
     public string Title { get; set; }
 
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildSomeContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnButtonClick { get; set; }
 }

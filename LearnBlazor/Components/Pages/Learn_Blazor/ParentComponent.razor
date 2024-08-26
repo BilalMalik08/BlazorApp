@@ -1,11 +1,30 @@
 ﻿@page "/LearnBlazor/ParentComponent"
 
-<h3>Parent Component</h3>
+<div class="container my-4">
+    <h3 class="text-primary">Parent Component</h3>
 
-<_ChildComponent Title="This title is passed as a parameter to the child component">
+    <div class="mb-4">
+        <_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as a parameter to the child component">
+            <ChildSomeContent>  Some text between the tags from Child some!!</ChildSomeContent>
+            <ChildContent>  Some text between the tags from parent component!!</ChildContent>
+        </_ChildComponent>
+    </div>
 
-</_ChildComponent>
+    <p class="text-success font-weight-bold">@MessageText</p>
+
+    <_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as a parameter to the child component">
+        <ChildContent>  Some text between the tags from parent component!!</ChildContent>
+        <ChildSomeContent>  Some text between the tags from Child some!!</ChildSomeContent>
+    </_ChildComponent>
+
+    <p class="text-success font-weight-bold">@MessageText</p>
+</div>
 
 @code {
+    public string MessageText = "";
 
+    private void ShowMessage()
+    {
+        MessageText = "Button inside child component clicked";
+    }
 }

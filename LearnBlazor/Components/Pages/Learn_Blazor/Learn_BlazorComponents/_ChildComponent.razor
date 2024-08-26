@@ -1,4 +1,6 @@
-﻿<div class="card shadow-sm mb-4">
+﻿@inject IJSRuntime _IJSRuntime
+
+<div class="card shadow-sm mb-4">
     <div class="card-header bg-info text-white">
         <h5>@Title</h5>
     </div>
@@ -40,4 +42,9 @@
 
     [Parameter]
     public string MessageForFrandChild { get; set; }
+
+    public async Task ToastrSuccess()
+    {
+        await _IJSRuntime.InvokeVoidAsync("showToastr", "success", "Success Notification");
+    }
 }

@@ -6,4 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Components\Pages\Learn_Blazor\Learn_BlazorComponents\ParentComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Pages\Learn_Blazor\Learn_BlazorComponents\ParentComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\Pages\Learn_Blazor\Learn_BlazorComponents\ParentComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Components\Pages\Learn_Blazor\ParentComponent.razor" />
+  </ItemGroup>
+
 </Project>

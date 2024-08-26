@@ -4,18 +4,19 @@
     <h3 class="text-primary">Parent Component</h3>
 
     <div class="mb-4">
-        <_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as a parameter to the child component">
-            <ChildSomeContent>  Some text between the tags from Child some!!</ChildSomeContent>
-            <ChildContent>  Some text between the tags from parent component!!</ChildContent>
+        <_ChildComponent OnButtonClick="ShowMessage"
+                         Title="This title is passed as a parameter to the child component from parent component"
+                         MessageForFrandChild="This title is passed as a parameter to the grandchild component from the grandparent component">
+
+            <ChildSomeContent>
+                Some text between the tags from Child some!!
+            </ChildSomeContent>
+
+            <ChildContent>
+                Some text between the tags from the parent component!!
+            </ChildContent>
         </_ChildComponent>
     </div>
-
-    <p class="text-success font-weight-bold">@MessageText</p>
-
-    <_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as a parameter to the child component">
-        <ChildContent>  Some text between the tags from parent component!!</ChildContent>
-        <ChildSomeContent>  Some text between the tags from Child some!!</ChildSomeContent>
-    </_ChildComponent>
 
     <p class="text-success font-weight-bold">@MessageText</p>
 </div>

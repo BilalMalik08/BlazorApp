@@ -1,21 +1,25 @@
 ﻿<div class="card shadow-sm mb-4">
     <div class="card-header bg-info text-white">
-        @Title
+        <h5>@Title</h5>
     </div>
     <div class="card-body">
         @if (ChildContent != null)
         {
             <div class="alert alert-success">
-                @ChildContent
+                <strong>From Parent Component:</strong> @ChildContent
             </div>
         }
         @if (ChildSomeContent != null)
         {
-            <div class="alert alert-success">
-                @ChildSomeContent
+            <div class="alert alert-warning">
+                <strong>From Child Some:</strong> @ChildSomeContent
             </div>
         }
         <button class="btn btn-dark mt-2" @onclick="OnButtonClick">Click Me</button>
+    </div>
+
+    <div class="card-footer">
+        <_GrandChildComponent MessageForFrandChild="@MessageForFrandChild" />
     </div>
 </div>
 
@@ -31,4 +35,7 @@
 
     [Parameter]
     public EventCallback OnButtonClick { get; set; }
+
+    [Parameter]
+    public string MessageForFrandChild { get; set; }
 }

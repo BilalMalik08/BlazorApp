@@ -1,0 +1,15 @@
+﻿<div class="row">
+    <div class="col-12">
+        <div class="card bg-light border-primary shadow-sm">
+            <div class="card-body">
+                <h5 class="text-primary">Grandchild Component</h5>
+                <p class="mb-0">There is a message: <strong>@MessageForFrandChild</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string MessageForFrandChild { get; set; }
+}

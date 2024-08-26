@@ -2,21 +2,31 @@
 
 @inject IJSRuntime _IJSRuntime;
 
-<h3>Blazor Js</h3>
+<h3 class="text-center mb-4">Blazor JS Integration</h3>
 
-<div class="row">
-    <button class="btn btn-secondary" @onclick="TestConfirmBox">Test Confirm Box</button>
+<div class="row mb-3 justify-content-center">
+    <button class="btn btn-secondary btn-lg" @onclick="TestConfirmBox">Test Confirm Box</button>
 </div>
 
-<div class="row">
+<div class="row mb-3 justify-content-center">
     @if (ConfirmResult)
     {
-        <h2 class="text-success">Confirmation Dome</h2>
+        <h2 class="text-success">✔ Confirmation Done</h2>
     }
     else
     {
-        <h2 class="text-warning">Confirmation Pending</h2>
+        <h2 class="text-warning">⏳ Confirmation Pending</h2>
     }
+</div>
+
+<div class="row mb-3 justify-content-center">
+    <button @onclick="ToastrSuccess" class="btn btn-success btn-lg mx-2">Toastr Success</button>
+    <button @onclick="ToastrError" class="btn btn-danger btn-lg mx-2">Toastr Error</button>
+</div>
+
+<div class="row justify-content-center">
+    <button @onclick="SweetAlertSuccess" class="btn btn-success btn-lg mx-2">Sweet Alert Success</button>
+    <button @onclick="SweetAlertError" class="btn btn-danger btn-lg mx-2">Sweet Alert Error</button>
 </div>
 
 @code {
@@ -27,5 +37,25 @@
     private async Task TestConfirmBox()
     {
         ConfirmResult = await _IJSRuntime.InvokeAsync<bool>("confirm", ConfirmMessage);
+    }
+
+    private async Task ToastrSuccess()
+    {
+        await _IJSRuntime.InvokeVoidAsync("showToastr", "success", "Success Notification");
+    }
+
+    private async Task ToastrError()
+    {
+        await _IJSRuntime.InvokeVoidAsync("showToastr", "error", "Error Notification");
+    }
+
+    private async Task SweetAlertSuccess()
+    {
+        await _IJSRuntime.InvokeVoidAsync("showSwal", "success", "Task Completed Successfully!");
+    }
+
+    private async Task SweetAlertError()
+    {
+        await _IJSRuntime.InvokeVoidAsync("showSwal", "error", "Task Failed!");
     }
 }

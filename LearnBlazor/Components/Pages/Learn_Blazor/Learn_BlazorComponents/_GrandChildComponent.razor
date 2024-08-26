@@ -4,12 +4,16 @@
             <div class="card-body">
                 <h5 class="text-primary">Grandchild Component</h5>
                 <p class="mb-0">There is a message: <strong>@MessageForFrandChild</strong></p>
+                <p class="mb-0">Lucky Number: <strong>@LuckyNumber</strong></p>
             </div>
         </div>
     </div>
 </div>
 
 @code {
-    [Parameter]
+    [CascadingParameter(Name = "MessageForFrandChild")]
     public string MessageForFrandChild { get; set; }
+
+    [CascadingParameter(Name = "LuckyNimber")]
+    public int LuckyNumber { get; set; }
 }

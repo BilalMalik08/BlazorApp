@@ -3,10 +3,11 @@
 <div class="container my-4">
     <h3 class="text-primary">Parent Component</h3>
 
-    <div class="mb-4">
+    <CascadingValue Value="@LuckyNumber" Name="LuckyNumber">
+        <CascadingValue Value="@MessageForFrandChild" Name="MessageForFrandChild">
+        <div class="mb-4">
         <_ChildComponent OnButtonClick="ShowMessage"
-                         Title="This title is passed as a parameter to the child component from parent component"
-                         MessageForFrandChild="This title is passed as a parameter to the grandchild component from the grandparent component">
+                         Title="This title is passed as a parameter to the child component from parent component">
 
             <ChildSomeContent>
                 Some text between the tags from Child some!!
@@ -17,11 +18,17 @@
             </ChildContent>
         </_ChildComponent>
     </div>
+   </CascadingValue>
+  </CascadingValue>
 
     <p class="text-success font-weight-bold">@MessageText</p>
 </div>
 
 @code {
+    public int LuckyNumber = 9;
+    
+    public string MessageForFrandChild = "This title is passed as a parameter to the grandchild component from the grandparent component";
+
     public string MessageText = "";
 
     private void ShowMessage()

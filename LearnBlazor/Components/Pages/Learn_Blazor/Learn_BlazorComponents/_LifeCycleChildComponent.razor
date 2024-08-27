@@ -6,10 +6,18 @@
 }
 
 @code {
+    [Parameter]
+    public int countValue { get; set; }
+
     List<string> EventType = new List<string>();
 
     protected override void OnInitialized()
     {
         EventType.Add("OnInitialized Child is Called!");
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventType.Add("OnParametersSet Child is Called!");
     }
 }

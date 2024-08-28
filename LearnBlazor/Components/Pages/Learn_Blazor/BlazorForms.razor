@@ -7,11 +7,22 @@
         <h2 class="text-success">Product Form</h2>
     </div>
     <div class="mx-2 px-2">
-        <EditForm FormName="ProductCreate" Model="Product" OnSubmit="HandleProductCreate">
+        <EditForm FormName="ProductCreate" Model="Product" OnValidSubmit="HandleProductCreate">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
             <div class="form-control py-2">
                 Product Name
                 <InputText class="form-control" @bind-Value="@Product.Name" />
+                <ValidationMessage For="@(()=>Product.Name)" />
             </div>
+
+            <div class="form-control py-2">
+                Product Price
+                <InputNumber class="form-control" @bind-Value="@Product.Price" />
+                <ValidationMessage For="@(()=>Product.Price)" />
+            </div>
+
             <button type="submit" class="btn btn-primary my-3" style="width: 200px;">Create Product</button>
             <p class="text-success">@(isProcessing ? "Processing" : "")</p>
         </EditForm>

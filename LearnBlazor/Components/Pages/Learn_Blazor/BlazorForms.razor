@@ -47,19 +47,55 @@
 
             <button type="submit" class="btn btn-primary my-3" style="width: 200px;">Create Product</button>
             <p class="text-success">@(isProcessing ? "Processing" : "")</p>
+            @if(createdProduct is not null)
+            {
+                <div class="mb-2">
+                    <h2 class="text-success">Product Created</h2>
+                    <div class="px-4">
+                        Name: @createdProduct.Name <br />
+                        Proce: @createdProduct.Price <br />
+                        Category @createdProduct.Category <br />
+                        Is Active @createdProduct.IsActive <br />
+                        Available After: @createdProduct.AvailableAfter <br />
+                    </div>
+              </div>
+            }
         </EditForm>
+
+       @*  <EditForm FormName="ProductCreateTemp" Model="ProductTemp" OnValidSubmit="HandleProductCreateTemp">
+
+        </EditForm> *@
     </div>
 </div>
 
 @code {
+    [SupplyParameterFromForm(FormName = "ProductCreate")]
     public Product Product { get; set; } = new Product() {};
 
+    // [SupplyParameterFromForm(FormName = "ProductCreateTemp")]
+    // public Product ProductTemp { get; set; } = new Product() { };
+
     private bool isProcessing = false;
+
+    private Product? createdProduct { get; set; }
 
     private async Task HandleProductCreate()
     {
         isProcessing = true;
+        createdProduct = null;
         await Task.Delay(3000);
+        createdProduct = Product;
+        Product = new();
         isProcessing = false;
     }
+
+    // private async Task HandleProductCreateTemp()
+    // {
+    //     isProcessing = true;
+    //     createdProduct = null;
+    //     await Task.Delay(3000);
+    //     createdProduct = ProductTemp;
+    //     Product = new();
+    //     isProcessing = false;
+    // }
 }
